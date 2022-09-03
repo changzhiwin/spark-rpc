@@ -33,7 +33,9 @@ private sealed abstract class MessageLoop(dispatcher: Dispatcher) extends Loggin
         stopped = true
       }
     }
-    threadpool.awaitTermination(Long.MaxValue, TimeUnit.MILLISECONDS)
+
+    // will block, don't know why not return, TODO
+    // threadpool.awaitTermination(Long.MaxValue, TimeUnit.MILLISECONDS)
   }
 
   protected final def setActive(inbox: Inbox): Unit = active.offer(inbox)
@@ -44,6 +46,9 @@ private sealed abstract class MessageLoop(dispatcher: Dispatcher) extends Loggin
         try {
           val inbox = active.take()
           if (inbox == MessageLoop.PoisonPill) {
+
+            logger.trace(s"Get MessageLoop.PoisonPill, in ${Thread.currentThread().getName}, exits.")
+
             // 再次放回，是为了其他线程也能看到毒药
             setActive(MessageLoop.PoisonPill)
             return
@@ -55,10 +60,11 @@ private sealed abstract class MessageLoop(dispatcher: Dispatcher) extends Loggin
         }
       }
     } catch {
-      case _: InterruptedException =>
+      // case _: InterruptedException =>
       case t: Throwable            =>
         try {
           // 非致命错误，继续
+          logger.warn(s"catch Exception, but re execute.", t)
           threadpool.execute(receiveLoopRunnable)
         } finally {
           throw t
@@ -150,6 +156,9 @@ private class DedicatedMessageLoop(name: String, endpoint: IsolatedRpcEndpoint, 
     // 激活，处理最后的消息
     setActive(inbox)
     setActive(MessageLoop.PoisonPill)
+
+    // same as stop()
     threadpool.shutdown()
+    threadpool.awaitTermination(Long.MaxValue, TimeUnit.MILLISECONDS)
   }
 }

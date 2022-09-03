@@ -4,6 +4,8 @@ version := "1.0.0"
 
 scalaVersion := "2.13.8"
 
+val AkkaVersion = "2.6.19"
+
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.13" % "test",
   // "org.scalacheck" %% "scalacheck" % "1.15.4" % "test",
@@ -15,16 +17,16 @@ libraryDependencies ++= Seq(
 
   // https://mvnrepository.com/artifact/com.google.guava/guava/31.1-jre
   "com.google.guava" % "guava" % "31.1-jre",
-  // https://github.com/apache/spark/blob/master/core/src/main/scala/org/apache/spark/util/ClosureCleaner.scala
-  "org.apache.commons" % "commons-lang3" % "3.12.0",
-  //"org.apache.xbean" % "xbean-asm9-shaded" % "4.21",
-  "commons-io" % "commons-io" % "2.11.0",
 
-  // java impliment for netty framework
+  // netty for network
   "org.apache.spark" %% "spark-network-common" % "3.3.0",
 
   // config
-  "com.typesafe" % "config" % "1.4.2"
+  "com.typesafe" % "config" % "1.4.2",
+
+  // akka
+  "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion,
+  "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test
 )  
 
 Compile / mainClass := Some("xyz.sourcecodestudy.rpc.demo.Foobar")

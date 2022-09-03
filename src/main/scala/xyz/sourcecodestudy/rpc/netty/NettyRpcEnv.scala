@@ -23,8 +23,6 @@ import xyz.sourcecodestudy.rpc.serializer.{JavaSerializer, JavaSerializerInstanc
 import xyz.sourcecodestudy.rpc.{RpcEndpointRef, RpcEndpoint, RpcTimeout, RpcEnvConfig, RpcEnvFactory, RpcException, RpcSettings}
 import xyz.sourcecodestudy.rpc.{RpcEnv, AbortableRpcFuture, RpcAddress, RpcEndpointAddress, RpcEnvStoppedException, RpcEndpointNotFoundException}
 
-
-
 class NettyRpcEnv(
     val settings: RpcSettings, 
     javaSerializerInstance: JavaSerializerInstance,
@@ -86,7 +84,7 @@ class NettyRpcEnv(
       case Some(addr) => {
 
         val isLocal = (addr == address)
-        logger.info(s"[${message.senderAddress}] -> [${addr}], send [${if (isLocal) "local" else "remote"}] message [${message.content}]")
+        logger.debug(s"[${message.senderAddress}] -> [${addr}], send [${if (isLocal) "local" else "remote"}] message [${message.content}]")
         
         if (isLocal) {
           try {
@@ -136,7 +134,7 @@ class NettyRpcEnv(
         case Some(addr) => {
 
           val isLocal = (addr == address)
-          logger.info(s"[${message.senderAddress}] -> [${addr}], ask [${if (isLocal) "local" else "remote"}] message [${message.content}]")
+          logger.debug(s"[${message.senderAddress}] -> [${addr}], ask [${if (isLocal) "local" else "remote"}] message [${message.content}]")
 
           if (isLocal) {
             val p = Promise[Any]()

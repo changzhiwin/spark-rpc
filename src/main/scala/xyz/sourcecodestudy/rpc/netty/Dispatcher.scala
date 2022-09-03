@@ -105,7 +105,7 @@ class Dispatcher(nettyEnv: NettyRpcEnv, numUsableCores: Int) extends Logging {
 
   // 实际投递消息的接口
   private def postMessage(endpointName: String, message: InboxMessage, callbackIfStopped: (Exception) => Unit): Unit = {
-    logger.info(s"postMessage endpointName = ${endpointName}, message = ${message}")
+    logger.debug(s"postMessage endpointName = ${endpointName}, message = ${message}")
     val error = synchronized {
       val loop = endpoints.get(endpointName)
       if (stopped) {

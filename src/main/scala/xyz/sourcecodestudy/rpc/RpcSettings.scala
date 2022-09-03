@@ -17,7 +17,7 @@ class RpcSettings(val config: Config) extends Cloneable {
     val key = item.getKey()
     if (key.startsWith("rpc.")) {
       setting(key) = config.getString(key)
-      println(key + " -> " + setting(key))
+      // println(key + " -> " + setting(key))
     }
   }
 

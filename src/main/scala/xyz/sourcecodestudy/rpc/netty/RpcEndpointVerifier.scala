@@ -11,7 +11,7 @@ class RpcEndpointVerifier(override val rpcEnv: RpcEnv, dispatcher: Dispatcher) e
   }
 
   override def onStart(): Unit = {
-    logger.info(s"[${RpcEndpointVerifier.NAME}] stared")
+    logger.debug(s"[${RpcEndpointVerifier.NAME}] stared")
   }
 }
 
