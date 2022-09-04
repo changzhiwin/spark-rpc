@@ -1,12 +1,69 @@
 # Spark's RPC 
-Spark drop akka actor from 2.x, and implement self rpc module(basic on Netty). But it copy some concept from Akka Actor.
+Spark drop akka dependence sence 2.0, and rewrite self rpc module(basic on Netty). But it copy a lot concept from Akka Actor. This project take only rpc part from Spark Source code, and make it run independently.
 ## Framework of RPC
 ![rpc-framework](./doc/img/rpc-framework.png)
 
 
 ## RPC VS Akka Actor
-I write some simple code to compare both of them. It's very similar. 
-### Use RPC
+I write simple code to compare both of them. It's very similar, some concept mapping like this:
+- RpcEndpoint     -> Actor
+- RpcEndpointRef  -> ActorRef
+- RpcEnv          -> ActorSystem
+
+You can better understand with below program.
+
+### Environment
+- Java 1.8
+- Scala 2.13.8
+
+### How to run
+```
+1, open shell terminal at this project root dir
+
+2, $> sbt
+
+3, $> runMain xyz.sourcecodestudy.rpc.example.HelloWorldMain
+
+4, $> runMain xyz.sourcecodestudy.rpc.akka.HelloWorldMain
+
+// All details of console output
+changzhi@changzhi spark-rpc % sbt
+[info] welcome to sbt 1.6.2 (Oracle Corporation Java 1.8.0_191)
+[info] loading project definition from /Users/changzhi/Scala/github/spark-rpc/project
+[info] loading settings for project spark-rpc from build.sbt ...
+[info] set current project to spark-rpc (in build file:/Users/changzhi/Scala/github/spark-rpc/)
+[info] sbt server started at local:///Users/changzhi/.sbt/1.0/server/96df759d83040ce5c3db/sock
+[info] started sbt server
+sbt:spark-rpc> runMain xyz.sourcecodestudy.rpc.example.HelloWorldMain
+[info] running xyz.sourcecodestudy.rpc.example.HelloWorldMain 
+2022-09-04 10:16:11 INFO HelloWorld: Hello World!
+2022-09-04 10:16:11 INFO HelloWorldBot: Greeting 1 for World
+2022-09-04 10:16:11 INFO HelloWorld: Hello World!
+2022-09-04 10:16:11 INFO HelloWorldBot: Greeting 2 for World
+2022-09-04 10:16:11 INFO HelloWorld: Hello World!
+2022-09-04 10:16:11 INFO HelloWorldBot: Greeting 3 for World
+[success] Total time: 7 s, completed 2022-9-4 10:16:11
+sbt:spark-rpc> runMain xyz.sourcecodestudy.rpc.akka.HelloWorldMain
+[info] running xyz.sourcecodestudy.rpc.akka.HelloWorldMain 
+SLF4J: akka.event.slf4j.Slf4jLogger
+SLF4J: The following set of substitute loggers may have been accessed
+SLF4J: during the initialization phase. Logging calls during this
+SLF4J: phase were not honored. However, subsequent logging calls to these
+SLF4J: loggers will work as normally expected.
+SLF4J: See also http://www.slf4j.org/codes.html#substituteLogger
+[success] Total time: 2 s, completed 2022-9-4 10:16:22
+2022-09-04 10:16:22 INFO HelloWorld$: Hello World!
+2022-09-04 10:16:22 INFO HelloWorldBot$: Greeting 1 for World
+2022-09-04 10:16:22 INFO HelloWorld$: Hello World!
+2022-09-04 10:16:22 INFO HelloWorldBot$: Greeting 2 for World
+2022-09-04 10:16:22 INFO HelloWorld$: Hello World!
+2022-09-04 10:16:22 INFO HelloWorldBot$: Greeting 3 for World
+sbt:spark-rpc> exit
+[info] shutting down sbt server
+
+```
+
+### Use Spark Rpc
 ```
 // xyz.sourcecodestudy.rpc.example.HelloWorld.scala
 
@@ -72,7 +129,7 @@ object HelloWorldMain {
 }
 ```
 
-### Use Actor
+### Use Akka Actor
 ```
 // xyz.sourcecodestudy.rpc.akka.HelloWorld
 
