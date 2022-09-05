@@ -1,5 +1,5 @@
 # Spark's RPC 
-Spark drop akka dependence sence 2.0, and rewrite self rpc module(basic on Netty). But it copy a lot concept from Akka Actor. This project take only rpc part from Spark Source code, and make it run independently.
+Spark drop [akka](https://doc.akka.io/docs/akka/2.6/typed/actors.html#first-example) dependence sence 2.0, and rewrite self rpc module(basic on Netty). But it copy a lot concept from Akka Actor. This project take only rpc part from Spark [source code](https://github.com/changzhiwin/spark-core-analysis), and make it run independently.
 ## Framework of RPC
 ![rpc-framework](./doc/img/rpc-framework.png)
 
@@ -10,7 +10,7 @@ I write simple code to compare both of them. It's very similar, some concept map
 - RpcEndpointRef  -> ActorRef
 - RpcEnv          -> ActorSystem
 
-You can better understand with below program.
+You will better understand it with below program.
 
 ### Environment
 - Java 1.8
