@@ -4,7 +4,7 @@ Spark drop [akka](https://doc.akka.io/docs/akka/2.6/typed/actors.html#first-exam
 ![rpc-framework](./doc/img/rpc-framework.png)
 
 
-## RPC VS Akka Actor
+## RPC VS Akka Actor (VS ZIO expect)
 I write simple code to compare both of them. It's very similar, some concept mapping like this:
 - RpcEndpoint     -> Actor
 - RpcEndpointRef  -> ActorRef

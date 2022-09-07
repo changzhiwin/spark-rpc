@@ -26,7 +26,10 @@ libraryDependencies ++= Seq(
 
   // akka
   "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion,
-  "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test
+  "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
+
+  // ZIO
+  "dev.zio" %% "zio-actors" % "0.0.9"
 )  
 
 Compile / mainClass := Some("xyz.sourcecodestudy.rpc.demo.Foobar")
