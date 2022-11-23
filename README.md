@@ -1,10 +1,14 @@
 # Spark's RPC 
+> The implement with ZIO is [here](https://github.com/changzhiwin/zio-actor). It's more easier than this one.
+
 Spark drop [akka](https://doc.akka.io/docs/akka/2.6/typed/actors.html#first-example) dependence sence 2.0, and rewrite self rpc module(basic on Netty). But it copy a lot concept from Akka Actor. This project take only rpc part from Spark [source code](https://github.com/changzhiwin/spark-core-analysis), and make it run independently.
 ## Framework of RPC
 ![rpc-framework](./doc/img/rpc-framework.png)
 
 
-## RPC VS Akka Actor (VS ZIO expect)
+## RPC VS Akka Actor VS ZIO Actor
+> zio actor is [here](https://github.com/changzhiwin/zio-actor)
+
 I write simple code to compare both of them. It's very similar, some concept mapping like this:
 - RpcEndpoint     -> Actor
 - RpcEndpointRef  -> ActorRef

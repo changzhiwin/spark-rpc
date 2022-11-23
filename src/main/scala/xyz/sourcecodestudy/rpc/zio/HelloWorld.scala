@@ -6,7 +6,7 @@ import zio.clock.Clock
 import zio.console.putStrLn
 import zio.{ExitCode, UIO, URIO, ZIO}
 
-sealed trait Message[+_] 
+sealed trait Message[+A] 
 case object Increase extends Message[Unit]
 case object Get      extends Message[Int]
 
