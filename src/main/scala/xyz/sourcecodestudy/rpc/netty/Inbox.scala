@@ -41,6 +41,8 @@ private class Inbox(val endpointName: String, val endpoint: RpcEndpoint) extends
   @GuardedBy("this")
   private var stopped = false
 
+  // 对于一个endpoint默认是只允许有一个线程再消费消息队列的；
+  // enableConcurrent控制是否能够多个线程同时消费，numActiveThreads记录当前有多少线程在消费消息队列
   @GuardedBy("this")
   private var enableConcurrent = false
 
